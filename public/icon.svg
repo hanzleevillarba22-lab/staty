@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="112" fill="#173B75"/>
+  <!-- Outer Fox Ears -->
+  <path d="M126 236 L104 92 C102 78 118 70 129 80 L214 156 Z" fill="#3B82F6"/>
+  <path d="M386 236 L408 92 C410 78 394 70 383 80 L298 156 Z" fill="#3B82F6"/>
+  <!-- Inner Ears -->
+  <path d="M138 208 L124 114 L192 164 Z" fill="#FFFFFF"/>
+  <path d="M374 208 L388 114 L320 164 Z" fill="#FFFFFF"/>
+  <path d="M148 196 L138 140 L180 168 Z" fill="#A5B4FC"/>
+  <path d="M364 196 L374 140 L332 168 Z" fill="#A5B4FC"/>
+  <!-- Fox Hood -->
+  <path d="M96 276 C96 184 166 126 256 126 C346 126 416 184 416 276 C416 356 352 408 256 408 C160 408 96 356 96 276 Z" fill="#2563EB"/>
+  <!-- White Hood Brim -->
+  <path d="M116 284 C116 204 176 154 256 154 C336 154 396 204 396 284 C396 350 340 392 256 392 C172 392 116 350 116 284 Z" fill="#FFFFFF"/>
+  <!-- Hood Tiny Eyes & Nose -->
+  <circle cx="218" cy="188" r="9" fill="#0F172A"/>
+  <circle cx="294" cy="188" r="9" fill="#0F172A"/>
+  <path d="M242 198 H270 L256 216 Z" fill="#0F172A"/>
+  <!-- Glossy Black Digital Visor -->
+  <rect x="148" y="228" width="216" height="128" rx="48" fill="#0B1120"/>
+  <!-- Glowing Light-Blue Eyes -->
+  <rect x="182" y="268" width="52" height="32" rx="14" fill="#60A5FA"/>
+  <rect x="188" y="272" width="40" height="20" rx="10" fill="#BAE6FD"/>
+  <rect x="278" y="268" width="52" height="32" rx="14" fill="#60A5FA"/>
+  <rect x="284" y="272" width="40" height="20" rx="10" fill="#BAE6FD"/>
+  <!-- Subtle Yellow Accent Spark -->
+  <circle cx="394" cy="394" r="16" fill="#FACC15"/>
+</svg>

@@ -1,0 +1,6 @@
+{
+  "name": "STATLYTICS",
+  "description": "An Intelligent Research Analytics Platform for Automated Statistical Computation and Evidence-Based Interpretation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
