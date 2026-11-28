@@ -42,6 +42,18 @@ interface PendingAttachment {
   previewUrl?: string;
 }
 
+
+// Show chat text as plain, human-looking text (no ** or # markdown symbols).
+function cleanChatText(text: string): string {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/__([^_]+)__/g, '$1')
+    .replace(/(^|\s)\*([^*\n]+)\*(?=\s|$|[.,!?])/g, '$1$2')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^\s*[-*]\s+/gm, '• ')
+    .replace(/`([^`]+)`/g, '$1');
+}
+
 export interface ChatMessageItem {
   id: number | string;
   role: 'user' | 'assistant';
@@ -756,7 +768,7 @@ export const StatyChatPanel: React.FC<StatyChatPanelProps> = ({
                     </div>
                   )}
 
-                  <div className="whitespace-pre-wrap">{m.content}</div>
+                  <div className="whitespace-pre-wrap">{m.role === 'assistant' ? cleanChatText(m.content) : m.content}</div>
 
                   {m.context?.verifiedAnalysis && (
                     <div className="mt-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 p-3 text-xs space-y-1 text-slate-700 dark:text-slate-200">
@@ -832,7 +844,7 @@ export const StatyChatPanel: React.FC<StatyChatPanelProps> = ({
                 <div className="max-w-[85%] sm:max-w-[78%] rounded-2xl px-4 py-3 text-sm leading-relaxed bg-[#F8FAFC] dark:bg-slate-800 border border-blue-200 dark:border-blue-900/60 text-slate-800 dark:text-slate-100">
                   {streamingText ? (
                     <div className="whitespace-pre-wrap">
-                      {streamingText}
+                      {cleanChatText(streamingText)}
                       <span className="inline-block w-1.5 h-4 ml-0.5 bg-[#2563EB] align-middle animate-pulse" />
                     </div>
                   ) : (
