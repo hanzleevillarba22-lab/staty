@@ -1,5 +1,6 @@
 import { type FunctionDeclaration, GoogleGenAI, Type } from '@google/genai';
 import { db } from '../db.ts';
+import { EMBEDDED_GEMINI_API_KEY } from '../aiKey.ts';
 import { sanitizeText } from '../security.ts';
 import {
   applyCleaningPreview,
@@ -69,14 +70,24 @@ export interface StatyActionItem {
   entityId?: number;
 }
 
+function isRealKey(key: string | undefined): key is string {
+  const k = (key ?? '').trim();
+  return k !== '' && k !== 'MY_GEMINI_API_KEY' && k !== 'PASTE_YOUR_GEMINI_KEY_HERE';
+}
+
+function resolveApiKey(): string | undefined {
+  if (isRealKey(process.env.GEMINI_API_KEY)) return process.env.GEMINI_API_KEY!.trim();
+  if (isRealKey(EMBEDDED_GEMINI_API_KEY)) return EMBEDDED_GEMINI_API_KEY.trim();
+  return undefined;
+}
+
 export function isGeminiConfigured(): boolean {
-  const key = process.env.GEMINI_API_KEY;
-  return Boolean(key && key.trim() !== '' && key !== 'MY_GEMINI_API_KEY');
+  return Boolean(resolveApiKey());
 }
 
 function getGenAIClient(): GoogleGenAI {
   return new GoogleGenAI({
-    apiKey: process.env.GEMINI_API_KEY,
+    apiKey: resolveApiKey(),
     httpOptions: {
       headers: {
         'User-Agent': 'aistudio-build',
@@ -202,7 +213,9 @@ async function withModelFailover<T>(
       );
     } catch (err) {
       lastErr = err;
-      const canFallback = idx < STATY_MODEL_CHAIN.length - 1 && isRetryableGeminiError(err);
+      const lowerErr = (err instanceof Error ? err.message : String(err ?? '')).toLowerCase();
+      const modelMissing = lowerErr.includes('404') || lowerErr.includes('not_found') || lowerErr.includes('not found');
+      const canFallback = idx < STATY_MODEL_CHAIN.length - 1 && (isRetryableGeminiError(err) || modelMissing);
       if (!canFallback) {
         throw err;
       }
