@@ -205,7 +205,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
               RESEARCH OVERVIEW
             </p>
             <h1 className="mt-2 font-display text-2xl sm:text-3xl font-bold text-[#173B75] dark:text-white text-balance">
-              Welcome back, {user.full_name}
+              Welcome, {user.full_name}
             </h1>
             <p className="mt-2 text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
               STATLYTICS transforms raw quantitative research data into verified statistical computations, assumption diagnostics, and evidence-based APA 7 interpretations.
